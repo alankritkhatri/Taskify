@@ -57,13 +57,15 @@ const TaskPage = () => {
     setTaskData(taskDataafterDeleting);
   };
   return (
-    <div className="task-page flex flex-col w-1/2 mx-auto my-52 gap-10">
-      <div className="flex items-center justify-between ">
-        <Link className="bg-yellow-500 p-2 rounded-md" to="/">
+    <div className="task-page flex flex-col w-1/2 mx-auto my-52 gap-6">
+      <div className="flex items-center ">
+        <Link className="bg-yellow-500 p-1 rounded-md" to="/">
           Go back
         </Link>
         <Link to="/" onClick={deleteTask}>
-          <button className="bg-red-500 p-2 rounded-md">Delete Task</button>
+          <button className="bg-red-500 p-1 rounded-md ml-8">
+            Delete Task
+          </button>
         </Link>
       </div>
       <div className="flex flex-col gap-4 opacity-60 ">
