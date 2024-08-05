@@ -1,5 +1,5 @@
-import { act, useContext, useEffect, useState } from "react";
-import { Link, useLocation, useOutletContext } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { DataColumns } from "../App";
 
 const TaskPage = () => {
@@ -47,7 +47,7 @@ const TaskPage = () => {
   const deleteTask = () => {
     let taskDataafterDeleting = [...taskData];
     taskDataafterDeleting[statusColumnNo].Tasks.splice(pickedupCard, 1);
-    taskDataafterDeleting = taskDataafterDeleting.map((column, index) => {
+    taskDataafterDeleting = taskDataafterDeleting.map((column) => {
       return {
         ...column,
         Tasks: [...column.Tasks],
@@ -79,7 +79,7 @@ const TaskPage = () => {
         />
         <div className="flex gap-16">
           <div className="flex justify-center items-center g">
-            <span class="material-symbols-outlined text-base ">
+            <span className="material-symbols-outlined text-base ">
               progress_activity
             </span>
             <h1 className="ml-2">Status:</h1>

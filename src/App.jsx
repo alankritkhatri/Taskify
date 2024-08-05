@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import StatusColumm from "./Components/StatusColumn";
+
 import TaskPage from "./Components/TaskPage";
 import { Route, Routes } from "react-router-dom";
 import { createContext } from "react";
