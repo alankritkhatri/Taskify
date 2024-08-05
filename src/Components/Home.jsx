@@ -17,7 +17,7 @@ const Home = () => {
         </div>
         <div className="div">
           <div className="flex  items-center my-2">
-            <span class="material-symbols-outlined">view_week</span>
+            <span className="material-symbols-outlined">view_week</span>
             <h1 className="font-bold ml-1">Board View</h1>
           </div>
           <div className="statuses flex gap-6 flex-wrap justify-center">

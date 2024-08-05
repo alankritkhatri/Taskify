@@ -16,7 +16,7 @@ const TaskPage = () => {
     // deleteing
     newTaskData[statusColumnNo].Tasks.splice(pickedupCard, 1);
     // swtiching colums
-    newTaskData = newTaskData.map((column, index) => {
+    newTaskData = newTaskData.map((column) => {
       if (newColumnName == column.name) {
         return {
           ...column,
@@ -53,7 +53,6 @@ const TaskPage = () => {
         Tasks: [...column.Tasks],
       };
     });
-
     setTaskData(taskDataafterDeleting);
   };
   return (
@@ -83,7 +82,7 @@ const TaskPage = () => {
             <span class="material-symbols-outlined text-base ">
               progress_activity
             </span>
-            <h1>Status:</h1>
+            <h1 className="ml-2">Status:</h1>
           </div>
 
           <select

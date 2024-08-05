@@ -3,26 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DataColumns } from "../App";
 
-const TaskBox = ({
-  onEditTask,
-  text,
-  id,
-  index,
-  StatusColumnindex,
-  name,
-  taskCounter,
-}) => {
+const TaskBox = ({ text, id, index, StatusColumnindex, name }) => {
   const {
-    taskData,
-    setTaskData,
-    onDrop,
-    activeCard,
     setActiveCard,
-    pickUpcolumn,
-    setPickUpcolumn,
-    handleTaskCreate,
 
-    setStatusColumnNo,
+    setPickUpcolumn,
+
     handleTaskEdit,
   } = useContext(DataColumns);
 

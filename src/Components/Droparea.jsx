@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Droparea = ({ onDrop, StatusColumnindex }) => {
+const Droparea = ({ onDrop }) => {
   const [dropGuidelines, setDropGuidelines] = useState(false);
   return (
     <div
