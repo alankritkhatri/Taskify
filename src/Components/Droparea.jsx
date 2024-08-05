@@ -12,7 +12,7 @@ const Droparea = ({ onDrop, StatusColumnindex }) => {
       }}
       onDragOver={(e) => e.preventDefault()}
       className={`drop-area  rounded-md ${
-        dropGuidelines ? "opacity-100 h-10" : "opacity-0 h-2"
+        dropGuidelines ? "opacity-100 h-10" : "opacity-0 h-3"
       }`}
     ></div>
   );

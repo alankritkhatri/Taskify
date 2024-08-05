@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import StatusColumn from "./Components/StatusColumn";
-import { DataColumns } from "./App";
+import StatusColumn from "./StatusColumn";
+import { DataColumns } from "../App";
 
 const Home = () => {
   const { taskData, onDrop, handleTaskCreate, handleTaskEdit } =

@@ -1,6 +1,6 @@
 import { act, useContext, useEffect, useState } from "react";
 import { Link, useLocation, useOutletContext } from "react-router-dom";
-import { DataColumns } from "./App";
+import { DataColumns } from "../App";
 
 const TaskPage = () => {
   const { taskData, setTaskData, handleTaskEdit } = useContext(DataColumns);

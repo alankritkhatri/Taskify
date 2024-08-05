@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import StatusColumn from "./Components/StatusColumn";
-import TaskPage from "./TaskPage";
+import StatusColumm from "./Components/StatusColumn";
+import TaskPage from "./Components/TaskPage";
 import { Route, Routes } from "react-router-dom";
 import { createContext } from "react";
-import Home from "./Home";
+import Home from "./Components/Home";
 export const DataColumns = createContext();
 function App() {
   // DATA

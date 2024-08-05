@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { DataColumns } from "../../App";
+import { DataColumns } from "../App";
 
 const TaskBox = ({
   onEditTask,

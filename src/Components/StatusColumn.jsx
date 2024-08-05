@@ -1,6 +1,6 @@
 // import React, { useState } from "react";
-import Droparea from "./droparea.jsx/Droparea";
-import TaskBox from "./TaskBox/TaskBox";
+import Droparea from "./Droparea";
+import TaskBox from "../Components/TaskBox";
 import { DataColumns } from "../App";
 import React, { useContext } from "react";
 
