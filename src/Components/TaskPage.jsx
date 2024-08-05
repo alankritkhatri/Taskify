@@ -58,11 +58,14 @@ const TaskPage = () => {
   return (
     <div className="task-page flex flex-col w-1/2 mx-auto my-52 gap-6">
       <div className="flex items-center ">
-        <Link className="bg-yellow-500 p-1 rounded-md" to="/">
+        <Link
+          className="bg-yellow-500 p-1.5 text-black font-semibold rounded-md"
+          to="/"
+        >
           Go back
         </Link>
         <Link to="/" onClick={deleteTask}>
-          <button className="bg-red-500 p-1 rounded-md ml-8">
+          <button className="bg-red-500 p-1.5 text-black font-semibold rounded-md ml-6 ">
             Delete Task
           </button>
         </Link>
