@@ -1,0 +1,112 @@
+import { useState } from "react";
+
+const TaskBox = ({ onEditTask, text }) => {
+  const handleInputChange = (e) => {
+    const newTask = e.target.value;
+    onEditTask(newTask);
+  };
+
+  const userTaskInput = (inputValue) => {};
+  return (
+    <div className="taskBox flex bg-red-100 w-5/6 h-8 mx-auto my-4">
+      <input
+        type="text"
+        className="task-input bg-none outline-none border-none w-full h-full text-black"
+        placeholder="Add your task"
+        onInput={handleInputChange}
+        value={text}
+      />
+      <button className="w-8">x</button>
+    </div>
+  );
+};
+
+export default TaskBox;
+
+
+import TaskBox from "./TaskBox/TaskBox";
+//  onAddTask={() => handleTaskCreate(column.name)}
+//       onEditTask={(id, text) => handleTaskEdit(column.name, id, text)}
+const StatusColumn = ({ taskData, onAddTask, onEditTask }) => {
+  return (
+    <div className="status flex flex-col items-center">
+      <h1>{taskData.name}</h1>
+      <div className="flex flex-col w-64  bg-teal-300 ">
+        {taskData.Tasks.map((Task) => (
+          <TaskBox
+            text={Task.text}
+            key={Task.id}
+            onEditTask={(text) => {
+              onEditTask(Task.id, text);
+            }}
+          />
+        ))}
+        <button onClick={onAddTask}>Add</button>
+      </div>
+    </div>
+  );
+};
+
+export default StatusColumn;
+
+
+// import { useState } from "react";
+import { useState } from "react";
+import "./App.css";
+import StatusColumn from "./Components/StatusColumn";
+function App() {
+  const [taskData, setTaskData] = useState([
+    { name: "Not Started", Tasks: [] },
+    { name: "In Progress", Tasks: [] },
+    { name: "Done", Tasks: [] },
+  ]);
+  function handleTaskEdit(columnName, id, text) {
+    const newTaskData = taskData.map((column) => {
+      if (column.name === columnName) {
+        return {
+          ...column,
+          Tasks: column.Tasks.map((task) => {
+            if (task.id == id) {
+              return { ...task, text };
+            }
+            return task;
+          }),
+        };
+      }
+      return column;
+    });
+    setTaskData(newTaskData);
+  }
+  function handleTaskCreate(columnName) {
+    const newTask = {
+      id: crypto.randomUUID(),
+      text: "",
+    };
+
+    const newTaskData = taskData.map((column) => {
+      if (column.name === columnName) {
+        return { ...column, Tasks: [...column.Tasks, newTask] };
+      }
+      return column;
+    });
+    setTaskData(newTaskData);
+  }
+
+  return (
+    <div className="app flex flex-col items-center gap-16 overflow-x-auto">
+      <h1 className="text-white">Taskify</h1>
+      <div className="statuses flex gap-1">
+        {taskData.map((column) => (
+          <StatusColumn
+            key={column.name}
+            taskData={column}
+            onAddTask={() => handleTaskCreate(column.name)}
+            onEditTask={(id, text) => handleTaskEdit(column.name, id, text)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
