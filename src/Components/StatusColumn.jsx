@@ -11,10 +11,20 @@ const StatusColumn = ({
   StatusColumnindex,
   name,
 }) => {
-  const { onTaskDrop } = useContext(DataColumns);
+  const { onTaskDrop, columnsDropGuidelines, pickUpColumnIndex } =
+    useContext(DataColumns);
 
   return (
-    <div className="status flex flex-col items-start ">
+    <div
+      className={`status flex flex-col items-start
+
+        ${
+          columnsDropGuidelines && pickUpColumnIndex != StatusColumnindex
+            ? "bg-green-700"
+            : null
+        }
+        `}
+    >
       <div className="flex items-center gap-2">
         <h1
           className={`statusNames rounded-2xl px-2 my-4 font-semibold`}
@@ -22,16 +32,16 @@ const StatusColumn = ({
         >
           {IndividualTaskData.name}
         </h1>
-        <h2 className="opacity-25">{IndividualTaskData.Tasks.length}</h2>
+        <h2 className="opacity-25">{IndividualTaskData?.Tasks?.length}</h2>
       </div>
-      <div className="flex flex-col w-64 ">
+      <div className="flex flex-col w-64">
         <Droparea
           onTaskDrop={() =>
             onTaskDrop(IndividualTaskData.name, 0, StatusColumnindex)
           }
         />
-        {console.log(IndividualTaskData)}
-        {IndividualTaskData.Tasks.map((Task, index) => (
+
+        {IndividualTaskData?.Tasks?.map((Task, index) => (
           <div key={index}>
             <TaskBox
               index={index}

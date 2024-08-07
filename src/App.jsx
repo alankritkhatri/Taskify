@@ -14,6 +14,10 @@ function App() {
   const [pickUpColumnIndex, setpickUpColumnIndex] = useState(null);
   const [draggedTaskIndex, setdraggedTaskIndex] = useState(null);
   const [statusColumnNo, setStatusColumnNo] = useState(null);
+  const [columnsDropGuidelines, setColumnsDropGuidelines] = useState(false);
+  const [newStatusNameInput, setNewStatusNameInput] = useState("");
+  const [newStatusColorInput, setNewStatusColorInput] = useState("");
+  const [newStatusName, setnewStatusName] = useState("");
   const [taskData, setTaskData] = useState([
     {
       name: "Not Started",
@@ -41,6 +45,7 @@ function App() {
       const newArr = [...taskData[pickUpColumnIndex].Tasks];
       const [taskToMove] = newArr.splice(draggedTaskIndex, 1);
       let tempPosition = dropPositionIndex;
+
       if (tempPosition > draggedTaskIndex) {
         tempPosition = Math.max(0, tempPosition - 1);
       }
@@ -101,18 +106,40 @@ function App() {
 
     const newColumns = taskData.map((column) => {
       if (column.name === columnName) {
+        console.log(taskData);
+        console.log(column);
+        console.log(column.Tasks);
         return { ...column, Tasks: [...column.Tasks, newTask] };
       }
       return column;
     });
-    console.log(newColumns);
+
     setTaskData(newColumns);
   }
-
+  function addNewStatusColumn() {
+    /*const newlyCreatedArray = [
+      ...taskData,
+      {
+        name: newStatusName,
+        Tasks: [],
+        color: newStatusColorInput,
+      },
+    ];
+    setTaskData(newlyCreatedArray);*/
+    setTaskData((prevTaskData) => [
+      ...prevTaskData,
+      {
+        name: newStatusName,
+        Tasks: [],
+        color: newStatusColorInput,
+      },
+    ]);
+  }
+  console.log(taskData);
   useEffect(() => {
     localStorage.setItem("taskDataValues", JSON.stringify(taskData));
+    console.log(taskData);
   }, [taskData]);
-
   // ! return
   return (
     <DataColumns.Provider
@@ -128,6 +155,15 @@ function App() {
         statusColumnNo,
         setStatusColumnNo,
         handleTaskEdit,
+        columnsDropGuidelines,
+        setColumnsDropGuidelines,
+        setnewStatusName,
+        newStatusNameInput,
+        newStatusColorInput,
+        setNewStatusColorInput,
+        setNewStatusNameInput,
+
+        addNewStatusColumn,
       }}
     >
       <BrowserRouter>
