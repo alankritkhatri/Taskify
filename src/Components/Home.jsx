@@ -3,12 +3,12 @@ import StatusColumn from "./StatusColumn";
 import { DataColumns } from "../App";
 
 const Home = () => {
-  const { taskData, onDrop, handleTaskCreate, handleTaskEdit } =
+  const { taskData, handleTaskCreate, handleTaskEdit } =
     useContext(DataColumns);
 
   return (
     <div>
-      <div className="app flex flex-col items-center gap-16 overflow-x-auto ">
+      <div className="app flex flex-col items-center gap-16 overflow-x-auto">
         <div className="div flex flex-col items-center mt-12 gap-2">
           <h1 className="text-white text-3xl font-black">Taskify</h1>
           <h6 className="font-semibold">
@@ -25,13 +25,12 @@ const Home = () => {
               return (
                 <StatusColumn
                   key={column.name}
-                  taskData={column}
-                  onAddTask={() => handleTaskCreate(column.name)}
+                  IndividualTaskData={column}
+                  handleTaskCreate={() => handleTaskCreate(column.name)}
                   onEditTask={handleTaskEdit}
                   color={column.color}
                   name={column.name}
                   StatusColumnindex={index}
-                  onDrop={onDrop}
                 />
               );
             })}

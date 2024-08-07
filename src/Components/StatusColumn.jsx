@@ -1,20 +1,17 @@
-// import React, { useState } from "react";
 import Droparea from "./Droparea";
 import TaskBox from "../Components/TaskBox";
 import { DataColumns } from "../App";
-import React, { useContext } from "react";
+import { useContext } from "react";
 
-//  onAddTask={() => handleTaskCreate(column.name)}
-//       onEditTask={(id, text) => handleTaskEdit(column.name, id, text)}
 const StatusColumn = ({
-  onAddTask,
+  handleTaskCreate,
   onEditTask,
   color,
-  taskData,
+  IndividualTaskData,
   StatusColumnindex,
   name,
 }) => {
-  const { onDrop } = useContext(DataColumns);
+  const { onTaskDrop } = useContext(DataColumns);
 
   return (
     <div className="status flex flex-col items-start ">
@@ -23,18 +20,19 @@ const StatusColumn = ({
           className={`statusNames rounded-2xl px-2 my-4 font-semibold`}
           style={{ backgroundColor: color }}
         >
-          {taskData.name}
+          {IndividualTaskData.name}
         </h1>
-        <h2 className="opacity-25">{taskData.Tasks.length}</h2>
+        <h2 className="opacity-25">{IndividualTaskData.Tasks.length}</h2>
       </div>
       <div className="flex flex-col w-64 ">
         <Droparea
-          onDrop={() =>
-            onDrop(taskData.name, 0, StatusColumnindex, taskData.colIndex)
+          onTaskDrop={() =>
+            onTaskDrop(IndividualTaskData.name, 0, StatusColumnindex)
           }
         />
-        {taskData.Tasks.map((Task, index) => (
-          <React.Fragment key={index}>
+        {console.log(IndividualTaskData)}
+        {IndividualTaskData.Tasks.map((Task, index) => (
+          <div key={index}>
             <TaskBox
               index={index}
               text={Task?.text}
@@ -44,18 +42,23 @@ const StatusColumn = ({
               onEditTask={onEditTask}
               StatusColumnindex={StatusColumnindex}
             />
-
             <Droparea
-              onDrop={() => onDrop(taskData.name, index + 1, StatusColumnindex)}
+              onTaskDrop={() =>
+                onTaskDrop(
+                  IndividualTaskData.name,
+                  index + 1,
+                  StatusColumnindex
+                )
+              }
             />
-          </React.Fragment>
+          </div>
         ))}
         <div
-          onClick={onAddTask}
+          onClick={handleTaskCreate}
           className=" addTask flex opacity-25 items-center mx-2 my-1 p-2 cursor-pointer rounded-md"
         >
           <span className="material-symbols-outlined text-2x1">add</span>
-          <button className="">Add</button>
+          <button>Add</button>
         </div>
       </div>
     </div>

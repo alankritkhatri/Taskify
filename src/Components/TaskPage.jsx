@@ -4,9 +4,7 @@ import { DataColumns } from "../App";
 
 const TaskPage = () => {
   const { taskData, setTaskData, handleTaskEdit } = useContext(DataColumns);
-
   let { state } = useLocation();
-
   let { pickedupCard, statusColumnNo, name, id } = state;
   console.log(pickedupCard, statusColumnNo, name, id);
 
@@ -59,13 +57,13 @@ const TaskPage = () => {
     <div className="task-page flex flex-col w-1/2 mx-auto my-52 gap-6">
       <div className="flex items-center ">
         <Link
-          className="bg-yellow-500 p-1.5 text-black font-semibold rounded-md"
+          className="bg-yellow-500 p-1.5 text-white    font-semibold rounded-md"
           to="/"
         >
           Go back
         </Link>
         <Link to="/" onClick={deleteTask}>
-          <button className="bg-red-500 p-1.5 text-black font-semibold rounded-md ml-6 ">
+          <button className="bg-red-500 p-1.5 text-white font-semibold rounded-md ml-6 ">
             Delete Task
           </button>
         </Link>
@@ -115,6 +113,9 @@ const TaskPage = () => {
             className=" bg-none bg-transparent outline-none border-none "
             name=""
             id=""
+            defaultValue={
+              taskData[statusColumnNo].Tasks[pickedupCard]?.description
+            }
           ></textarea>
         </div>
       </div>

@@ -1,24 +1,19 @@
 // import { useState } from "react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DataColumns } from "../App";
 
 const TaskBox = ({ text, id, index, StatusColumnindex, name }) => {
-  const {
-    setActiveCard,
+  const { setdraggedTaskIndex, setpickUpColumnIndex, handleTaskEdit } =
+    useContext(DataColumns);
 
-    setPickUpcolumn,
-
-    handleTaskEdit,
-  } = useContext(DataColumns);
-
-  let { i } = useParams();
-  i = index;
+  let { taskNo } = useParams();
+  taskNo = index;
   return (
     <Link
       onClick={() => {}}
       to={{
-        pathname: `/taskpage/${name}/${i + 1}`,
+        pathname: `/taskpage/${name}/${taskNo + 1}`,
       }}
       state={{
         pickedupCard: index,
@@ -31,11 +26,11 @@ const TaskBox = ({ text, id, index, StatusColumnindex, name }) => {
         className={`taskBox flex w-60 h-10 mx-auto m-1`}
         draggable
         onDragStart={() => {
-          setActiveCard(index);
-          setPickUpcolumn(StatusColumnindex);
+          setdraggedTaskIndex(index);
+          setpickUpColumnIndex(StatusColumnindex);
         }}
         onDragEnd={() => {
-          setActiveCard(null);
+          setdraggedTaskIndex(null);
         }}
       >
         <input

@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-
 import TaskPage from "./Components/TaskPage";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createContext } from "react";
 import Home from "./Components/Home";
 export const DataColumns = createContext();
 function App() {
   // DATA
   // all the TaskData
-  // ! retrieving data from local storage
-  const taskStorage = localStorage.getItem("taskDataValues");
-  const localStorageTaskdata = JSON.parse(taskStorage);
-  const [pickUpcolumn, setPickUpcolumn] = useState(null);
-  const [activeCard, setActiveCard] = useState(null);
+  // ! retrieving data from local storadge
+  const taskStorageDB = localStorage.getItem("taskDataValues");
+  const localStorageTaskdata = JSON.parse(taskStorageDB);
+  const [pickUpColumnIndex, setpickUpColumnIndex] = useState(null);
+  const [draggedTaskIndex, setdraggedTaskIndex] = useState(null);
   const [statusColumnNo, setStatusColumnNo] = useState(null);
-
   const [taskData, setTaskData] = useState([
     {
       name: "Not Started",
@@ -35,37 +33,35 @@ function App() {
   ]);
 
   // Functions
-  const onDrop = (status, position, statusColumnindex) => {
-    if (activeCard == null || activeCard === undefined) return;
-
+  // Dropping Index
+  const onTaskDrop = (dropStatusName, dropPositionIndex, dropColumnIndex) => {
+    if (draggedTaskIndex == null || draggedTaskIndex === undefined) return;
     // you can drag a card and drop it back on its own column
-    if (pickUpcolumn == statusColumnindex) {
-      const newArr = [...taskData[pickUpcolumn].Tasks];
-      const [elementToMove] = newArr.splice(activeCard, 1);
-      let tempPosition = position;
-
-      if (tempPosition > activeCard) {
+    if (pickUpColumnIndex == dropColumnIndex) {
+      const newArr = [...taskData[pickUpColumnIndex].Tasks];
+      const [taskToMove] = newArr.splice(draggedTaskIndex, 1);
+      let tempPosition = dropPositionIndex;
+      if (tempPosition > draggedTaskIndex) {
         tempPosition = Math.max(0, tempPosition - 1);
       }
 
-      newArr.splice(tempPosition, 0, elementToMove);
-      taskData[pickUpcolumn].Tasks = newArr;
+      newArr.splice(tempPosition, 0, taskToMove);
+      taskData[pickUpColumnIndex].Tasks = newArr;
     } else {
       // drag a card and drop it into another column
-      const taskToMove = taskData[pickUpcolumn].Tasks[activeCard];
-      // Delete the card from the initial column (pickUpcolumn)
-      taskData[pickUpcolumn].Tasks.splice(activeCard, 1);
-
+      const taskToMove = taskData[pickUpColumnIndex].Tasks[draggedTaskIndex];
+      // Delete the card from the initial column (pickUpColumnIndex)
+      taskData[pickUpColumnIndex].Tasks.splice(draggedTaskIndex, 1);
       // Add the card to the new column
-      taskData[statusColumnindex].Tasks.splice(position, 0, taskToMove);
+      taskData[dropColumnIndex].Tasks.splice(dropPositionIndex, 0, taskToMove);
     }
 
     const updatedColumns = taskData.map((column) => {
-      if (column.name === status) {
+      if (column.name === dropStatusName) {
         return {
           ...column,
-          Tasks: column.Tasks.map((task, index) => {
-            if (index === position) {
+          Tasks: column.Tasks.map((task, taskIndex) => {
+            if (taskIndex === dropPositionIndex) {
               return { ...task };
             }
             return task;
@@ -76,8 +72,9 @@ function App() {
     });
     setTaskData(updatedColumns);
   };
-
+  // Editing Tasks
   function handleTaskEdit(columnName, taskID, text) {
+    console.log(columnName);
     const newTaskData = taskData.map((column) => {
       if (column.name === columnName) {
         return {
@@ -94,20 +91,16 @@ function App() {
     });
     setTaskData(newTaskData);
   }
+  //  Adding  Tasks
   function handleTaskCreate(columnName) {
     const newTask = {
       id: crypto.randomUUID(),
       text: "",
       description: "",
     };
-    // column
-    // { name: "Not Started", tasks: [ { id: "1", text: "" } ], color: "red" }
+
     const newColumns = taskData.map((column) => {
       if (column.name === columnName) {
-        // "Not Started" ["Not Started", "Done", "In Progress"]
-        console.log(column);
-        // ...column <- { ...{ } }
-        // [ All the tasks, plus the new task ]
         return { ...column, Tasks: [...column.Tasks, newTask] };
       }
       return column;
@@ -115,31 +108,34 @@ function App() {
     console.log(newColumns);
     setTaskData(newColumns);
   }
-  console.log(taskData);
+
   useEffect(() => {
     localStorage.setItem("taskDataValues", JSON.stringify(taskData));
   }, [taskData]);
+
   // ! return
   return (
     <DataColumns.Provider
       value={{
         taskData,
         setTaskData,
-        onDrop,
-        activeCard,
-        setActiveCard,
-        pickUpcolumn,
-        setPickUpcolumn,
+        onTaskDrop,
+        draggedTaskIndex,
+        setdraggedTaskIndex,
+        pickUpColumnIndex,
+        setpickUpColumnIndex,
         handleTaskCreate,
         statusColumnNo,
         setStatusColumnNo,
         handleTaskEdit,
       }}
     >
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path={"/taskpage/:name/:id"} element={<TaskPage />} />
-      </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path={"/taskpage/:name/:id"} element={<TaskPage />} />
+        </Routes>
+      </BrowserRouter>
     </DataColumns.Provider>
   );
 }

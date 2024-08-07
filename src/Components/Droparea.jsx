@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-const Droparea = ({ onDrop }) => {
+const Droparea = ({ onTaskDrop }) => {
   const [dropGuidelines, setDropGuidelines] = useState(false);
   return (
     <div
       onDragEnter={() => setDropGuidelines(true)}
       onDragLeave={() => setDropGuidelines(false)}
       onDrop={() => {
-        onDrop();
+        onTaskDrop();
         setDropGuidelines(false);
       }}
       onDragOver={(e) => e.preventDefault()}
