@@ -20,7 +20,7 @@ const StatusColumn = ({
 
         ${
           columnsDropGuidelines && pickUpColumnIndex != StatusColumnindex
-            ? "bg-green-700"
+            ? "bg-green-900"
             : null
         }
         `}

@@ -76,6 +76,7 @@ function App() {
       return column;
     });
     setTaskData(updatedColumns);
+    setColumnsDropGuidelines(false);
   };
   // Editing Tasks
   function handleTaskEdit(columnName, taskID, text) {
