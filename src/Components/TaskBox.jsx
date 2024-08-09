@@ -4,8 +4,12 @@ import { Link, useParams } from "react-router-dom";
 import { DataColumns } from "../App";
 
 const TaskBox = ({ text, id, index, StatusColumnindex, name }) => {
-  const { setdraggedTaskIndex, setpickUpColumnIndex, handleTaskEdit } =
-    useContext(DataColumns);
+  const {
+    setdraggedTaskIndex,
+    setpickUpColumnIndex,
+    handleTaskEdit,
+    setColumnsDropGuidelines,
+  } = useContext(DataColumns);
 
   let { taskNo } = useParams();
   taskNo = index;
@@ -28,9 +32,11 @@ const TaskBox = ({ text, id, index, StatusColumnindex, name }) => {
         onDragStart={() => {
           setdraggedTaskIndex(index);
           setpickUpColumnIndex(StatusColumnindex);
+          setColumnsDropGuidelines(true);
         }}
         onDragEnd={() => {
           setdraggedTaskIndex(null);
+          setColumnsDropGuidelines(false);
         }}
       >
         <input

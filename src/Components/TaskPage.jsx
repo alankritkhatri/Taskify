@@ -76,7 +76,7 @@ const TaskPage = () => {
           onChange={(e) => {
             handleTaskEdit(name, id, e.target.value);
           }}
-          defaultValue={taskData[statusColumnNo].Tasks[pickedupCard]?.text}
+          defaultValue={taskData[statusColumnNo]?.Tasks[pickedupCard]?.text}
         />
         <div className="flex gap-16">
           <div className="flex justify-center items-center g">
@@ -114,7 +114,7 @@ const TaskPage = () => {
             name=""
             id=""
             defaultValue={
-              taskData[statusColumnNo].Tasks[pickedupCard]?.description
+              taskData[statusColumnNo]?.Tasks[pickedupCard]?.description
             }
           ></textarea>
         </div>
