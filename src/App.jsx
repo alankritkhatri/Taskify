@@ -7,10 +7,10 @@ import Home from "./Components/Home";
 export const DataColumns = createContext();
 function App() {
   // DATA
-  // all the TaskData
-  // ! retrieving data from local storadge
-  const taskStorageDB = localStorage.getItem("taskDataValues");
-  const localStorageTaskdata = JSON.parse(taskStorageDB);
+  // all the TaskData4
+
+  // ! retrieving data from local storage
+
   const [pickUpColumnIndex, setpickUpColumnIndex] = useState(null);
   const [draggedTaskIndex, setdraggedTaskIndex] = useState(null);
   const [statusColumnNo, setStatusColumnNo] = useState(null);
@@ -18,23 +18,29 @@ function App() {
   const [newStatusNameInput, setNewStatusNameInput] = useState("");
   const [newStatusColorInput, setNewStatusColorInput] = useState("");
   const [newStatusName, setnewStatusName] = useState("");
-  const [taskData, setTaskData] = useState([
-    {
-      name: "Not Started",
-      Tasks: localStorageTaskdata ? localStorageTaskdata[0]?.Tasks : [],
-      color: "#5A5A5A",
-    },
-    {
-      name: "In Progress",
-      Tasks: localStorageTaskdata ? localStorageTaskdata[1]?.Tasks : [],
-      color: "#28456C",
-    },
-    {
-      name: "Done",
-      Tasks: localStorageTaskdata ? localStorageTaskdata[2]?.Tasks : [],
-      color: "#2b593f",
-    },
-  ]);
+
+  const [taskData, setTaskData] = useState(() => {
+    const localData = localStorage.getItem("taskDataValues");
+    return localData !== null
+      ? JSON.parse(localData)
+      : [
+          {
+            name: "Not Started",
+            Tasks: [],
+            color: "#5A5A5A",
+          },
+          {
+            name: "In Progress",
+            Tasks: [],
+            color: "#28456C",
+          },
+          {
+            name: "Done",
+            Tasks: [],
+            color: "#2b593f",
+          },
+        ];
+  });
 
   // Functions
   // Dropping Index
@@ -47,7 +53,7 @@ function App() {
       let tempPosition = dropPositionIndex;
 
       if (tempPosition > draggedTaskIndex) {
-        tempPosition = Math.max(0, tempPosition - 1);
+        tempPosition = tempPosition - 1;
       }
 
       newArr.splice(tempPosition, 0, taskToMove);
@@ -118,15 +124,6 @@ function App() {
     setTaskData(newColumns);
   }
   function addNewStatusColumn() {
-    /*const newlyCreatedArray = [
-      ...taskData,
-      {
-        name: newStatusName,
-        Tasks: [],
-        color: newStatusColorInput,
-      },
-    ];
-    setTaskData(newlyCreatedArray);*/
     setTaskData((prevTaskData) => [
       ...prevTaskData,
       {
