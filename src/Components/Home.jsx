@@ -50,12 +50,14 @@ const Home = () => {
                       "yellow",
                       "red",
                       "orange",
+                      "Green",
+                      "green",
                     ].includes(newStatusColorInput)
                   ) {
                     addNewStatusColumn();
                   } else {
                     alert(
-                      "Please enter new column name and color from Red Yellow and Orange without any spaces"
+                      "Enter column name and color( Red Yellow and Orange,Green) without any spaces"
                     );
                   }
                 }}
