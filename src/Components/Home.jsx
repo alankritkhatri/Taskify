@@ -26,12 +26,12 @@ const Home = () => {
           </h6>
         </div>
         <div className="div">
-          <div className="flex justify-around ">
-            <div className="flex  items-center my-2">
+          <div className="flex justify-around flex-wrap ">
+            <div className="flex  items-center my-2 flex-wrap ">
               <span className="material-symbols-outlined">view_week</span>
               <h1 className="font-bold ml-1">Board View</h1>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center flex-wrap  justify-center ">
               <button
                 onClick={() => {
                   if (
@@ -59,12 +59,12 @@ const Home = () => {
                     );
                   }
                 }}
-                className=" bg-blue-500 p-1.5 text-whitefont-semibold rounded-md"
+                className=" bg-blue-500 p-1 text-white  font-semibold rounded-md"
               >
                 Add Status Column
               </button>
               <input
-                className="text-black outline-none border-none  rounded-md p-2"
+                className="text-black outline-none border-none  rounded-md  p-1   "
                 onChange={(e) => {
                   setnewStatusName(e.target.value);
                   setNewStatusNameInput(e.target.value);
@@ -72,7 +72,7 @@ const Home = () => {
                 placeholder="New Status Name"
               />
               <input
-                className="text-black outline-none border-none  rounded-md cursor-pointer p-2"
+                className="text-black outline-none border-none  rounded-md  p-1 cursor-pointer"
                 onChange={(e) => {
                   setNewStatusColorInput(e.target.value);
                 }}
