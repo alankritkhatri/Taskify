@@ -16,16 +16,16 @@ const StatusColumn = ({
 
   return (
     <div
-      className={`status flex flex-col items-center items-start
+      className={`status flex flex-col items-start
 
         ${
           columnsDropGuidelines && pickUpColumnIndex != StatusColumnindex
-            ? "bg-green-600 rounded-md my-4 border-white border-opacity-60 border-2 border-dashed "
+            ? "bg-green-900"
             : null
         }
         `}
     >
-      <div className="flex items-center  gap-2">
+      <div className="flex items-center gap-2">
         <h1
           className={`statusNames rounded-2xl px-2 my-4 font-semibold`}
           style={{ backgroundColor: color }}
